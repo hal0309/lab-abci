@@ -1,3 +1,8 @@
+fname: 20k_route_test
+dm:
+  _name: MyDataModule
+  batch_size: 64
+  n_of_route: 10000
 model:
   _name: TransformerByPL
   d_model: 64

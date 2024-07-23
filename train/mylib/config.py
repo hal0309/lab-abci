@@ -14,13 +14,12 @@ class Configurable(ABC):
         for attr_name, attr_value in self.__dict__.items():
             if attr_name in type_hints and type_hints[attr_name] == save:
                 config_items[attr_name] = attr_value
-                print("add", attr_name, type_hints[attr_name])
         config_items["_name"] = type(self).__name__
         return config_items
 
     @classmethod
     def from_config(cls, config):
-        """Instantiate the class from a configuration dictionary."""
+        """configを元にインスタンスを生成する"""
         config_without_name = config.copy()
         name = config_without_name.pop("_name")
 
@@ -45,7 +44,6 @@ class ConfigrationBuilder:
         print(self.config)
         to_yaml(self.config, path)
     
-
 
 def to_yaml(config, path) -> None:
     with open(os.path.join(path, "config.yaml") , 'w') as f:
