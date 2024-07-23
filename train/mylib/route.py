@@ -1,21 +1,16 @@
 import numpy as np
 import random
 from mylib.config import Configurable
-
-NORTH = 1
-SOUTH = -1
-EAST = 2
-WEST = -2
-STRAIGHT = 0
-RIGHT = 1
-BACK = 2
-LEFT = 3
-
-
-
-
+from mylib.config import save
 
 class DistanceRotateRouteGeneraterV1(Configurable):
+    x_range: save
+    y_range: save
+    path_length: save
+    dist_min: save
+    dist_max: save
+    angle_min: save
+    angle_max: save
 
     def __init__(self, x_range, y_range, path_length, dist_min=0, dist_max=5, angle_min=0, angle_max=360):
         self.x_range = int(x_range)

@@ -1,13 +1,22 @@
 from abc import ABC
 import os
 import yaml
+from typing import get_type_hints
+
+class save:
+    pass
 
 class Configurable(ABC):
     def get_config(self):
-        """引数をdict形式で返す(private変数を除外)"""
-        config = {**self.__dict__, "_name": type(self).__name__}
-        prefix = f"_{type(self).__name__}"
-        return {k: v for k, v in config.items() if not k.startswith(prefix)}
+        """save アノテーションが付いている項目だけを dict 形式で返す"""
+        config_items = {}
+        type_hints = get_type_hints(type(self))  # 型ヒントを取得
+        for attr_name, attr_value in self.__dict__.items():
+            if attr_name in type_hints and type_hints[attr_name] == save:
+                config_items[attr_name] = attr_value
+                print("add", attr_name, type_hints[attr_name])
+        config_items["_name"] = type(self).__name__
+        return config_items
 
     @classmethod
     def from_config(cls, config):
@@ -33,6 +42,7 @@ class ConfigrationBuilder:
         return self.config
     
     def to_yaml(self, path):
+        print(self.config)
         to_yaml(self.config, path)
     
 

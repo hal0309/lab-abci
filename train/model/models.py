@@ -13,13 +13,25 @@ from torch.nn import TransformerEncoder, TransformerEncoderLayer
 import datetime
 
 import model as models
+from mylib.config import Configurable
+from mylib.config import save
 
 
-class TransformerByPL(pl.LightningModule):
+class TransformerByPL(pl.LightningModule, Configurable):
+    d_model: save
+    nhead: save
+    num_layers: save
+    use_distance: save
+
     def __init__(self, d_model=64, nhead=8, num_layers=2, use_distance=True):  
         super().__init__()
         self.save_hyperparameters()
+
+        self.d_model = d_model
+        self.nhead = nhead
+        self.num_layers = num_layers
         self.use_distance = use_distance
+        
         input_size = 3
         if use_distance:
             input_size += 1
@@ -39,7 +51,7 @@ class TransformerByPL(pl.LightningModule):
         
         # Add positional encoding for sequential information (if needed)
         output = self.transformer_encoder(x)  
-        output = self.fc(output[:, -20, :])  # Get the output for the last time step
+        output = self. fc(output[:, -20, :])  # Get the output for the last time step
         return output
     
 
