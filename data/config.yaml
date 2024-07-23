@@ -1,0 +1,8 @@
+angle_max: 90
+angle_min: 0
+dist_max: 5
+dist_min: 1
+_name: DistanceRotateRouteGeneraterV1
+path_length: 40
+x_range: 30
+y_range: 100
