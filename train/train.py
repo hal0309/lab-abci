@@ -8,6 +8,7 @@ from pytorch_lightning.callbacks import ModelCheckpoint
 
 import model.models as models
 from model.datamodule import MyDataModule
+from model.datamodule import MyDataModuleWithRoute
 import mylib.route as m_route
 import mylib.utils as ut
 import mylib.config as conf
@@ -22,13 +23,12 @@ CONFIG_DIR = os.path.join(ROOT_PATH, "config")
 def main():
     ut.fix_seeds(0)
 
-    max_epochs = 10000
-
     if len(sys.argv) == 3:
         config_name = sys.argv[1]
         max_epochs = int(sys.argv[2])
     elif len(sys.argv) == 2:
         config_name = sys.argv[1]
+        max_epochs = 10000
     else:
         raise ValueError("Invalid arguments length (train.py config_name [max_epochs])")
     
@@ -42,22 +42,25 @@ def main():
     route_gen = m_route.DistanceRotateRouteGeneraterV1.from_config(config_route)
 
     config_dm = config["dm"]
-    dm = MyDataModule(n_of_route=config_dm["n_of_route"], batch_size=config_dm["batch_size"], route_gen=route_gen, df=df)
+    # dm = MyDataModule(n_of_route=config_dm["n_of_route"], batch_size=config_dm["batch_size"], route_gen=route_gen, df=df)
+    dm = MyDataModuleWithRoute(n_of_route=config_dm["n_of_route"], batch_size=config_dm["batch_size"], route_gen=route_gen, df=df)
 
     config_model = config["model"]
-    model = models.TransformerByPL.from_config(config_model)
+    # model = models.TransformerByPL.from_config(config_model)
+    model = models.TransformerWithRoute.from_config(config_model)
 
     fname = config["fname"]
     train(route_gen=route_gen, dm=dm, model=model, max_epochs=max_epochs, fname=fname)
 
 
 def train(route_gen, dm, model, max_epochs, fname):
+    # ディレクトリの作成
     log_fname = f"{ut.get_datetime()}-{fname}"
-
     output_dir = os.path.join(OUTPUT_DIR, "lightning_logs")
     checkpoint_dir = os.path.join(output_dir, log_fname, "cp")
     os.makedirs(checkpoint_dir, exist_ok=True)
 
+    # configの保存
     config_route = route_gen.get_config()
     config_dm = dm.get_config()
     config_model = model.get_config()
