@@ -42,12 +42,12 @@ def main():
     route_gen = m_route.DistanceRotateRouteGeneraterV1.from_config(config_route)
 
     config_dm = config["dm"]
-    # dm = MyDataModule(n_of_route=config_dm["n_of_route"], batch_size=config_dm["batch_size"], route_gen=route_gen, df=df)
-    dm = MyDataModuleWithRoute(n_of_route=config_dm["n_of_route"], batch_size=config_dm["batch_size"], route_gen=route_gen, df=df)
+    dm = MyDataModule(n_of_route=config_dm["n_of_route"], batch_size=config_dm["batch_size"], route_gen=route_gen, df=df)
+    # dm = MyDataModuleWithRoute(n_of_route=config_dm["n_of_route"], batch_size=config_dm["batch_size"], route_gen=route_gen, df=df)
 
     config_model = config["model"]
-    # model = models.TransformerByPL.from_config(config_model)
-    model = models.TransformerWithRoute.from_config(config_model)
+    model = models.TransformerByPL.from_config(config_model)
+    # model = models.TransformerWithRoute.from_config(config_model)
 
     fname = config["fname"]
     train(route_gen=route_gen, dm=dm, model=model, max_epochs=max_epochs, fname=fname)

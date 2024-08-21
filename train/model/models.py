@@ -41,7 +41,7 @@ class TransformerByPL(pl.LightningModule, Configurable):
         
         # Add positional encoding for sequential information (if needed)
         output = self.transformer_encoder(x)  
-        output = self. fc(output[:, -20, :])  # Get the output for the last time step
+        output = self. fc(output)  # Get the output for the last time step
         return output
     
 
@@ -51,21 +51,21 @@ class TransformerByPL(pl.LightningModule, Configurable):
     def training_step(self, batch, batch_idx):
         x, y = batch
         y_hat = self(x)
-        loss = nn.functional.mse_loss(y_hat, y[:,-20,:])
+        loss = nn.functional.mse_loss(y_hat, y)
         self.log("train_loss", loss, prog_bar=True)
         return loss
 
     def test_step(self, batch, batch_idx):
         x, y = batch
         y_hat = self(x)
-        loss = nn.functional.mse_loss(y_hat, y[:,-20,:])
+        loss = nn.functional.mse_loss(y_hat, y)
         self.log("test_loss", loss, prog_bar=True)
         return loss
 
     def validation_step(self, batch, batch_idx):
         x, y = batch
         y_hat = self(x)
-        loss = nn.functional.mse_loss(y_hat, y[:,-20,:])
+        loss = nn.functional.mse_loss(y_hat, y)
         self.log("val_loss", loss, prog_bar=True)
         return loss
 

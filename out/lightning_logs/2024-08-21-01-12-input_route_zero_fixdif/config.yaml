@@ -2,7 +2,7 @@ dm:
   _name: MyDataModuleWithRoute
   batch_size: 64
   n_of_route: 10000
-fname: input_route_zero
+fname: input_route_zero_fixdif
 model:
   _name: TransformerWithRoute
   d_model: 64
