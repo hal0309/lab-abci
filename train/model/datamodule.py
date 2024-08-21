@@ -118,8 +118,11 @@ class RouteDatasetWithRoute(data.Dataset):
         X = [X[i] - X[0] for i in range(len(X))]
         Y = [Y[i] - Y[0] for i in range(len(Y))]
         # 適当な誤差を付与
-        X = [x + np.random.normal(0, 0.2) for x in X]
-        Y = [y + np.random.normal(0, 0.2) for y in Y]
+        diff_X = [np.random.normal(0, 0.2) for _ in X]
+        diff_Y = [np.random.normal(0, 0.2) for _ in Y]
+        # 誤差を累積
+        X = [X[i] + sum(diff_X[:i]) for i in range(len(X))]
+        Y = [Y[i] + sum(diff_Y[:i]) for i in range(len(Y))]
         X[0] = 0
         Y[0] = 0
         XY_zero = np.column_stack((X, Y))

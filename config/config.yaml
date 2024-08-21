@@ -1,4 +1,4 @@
-fname: input_route_zero
+fname: input_route_zero_sumdif
 dm:
   _name: MyDataModule
   batch_size: 64
