@@ -36,12 +36,17 @@ class TransformerByPL(pl.LightningModule, Configurable):
     def forward(self, x):
         if not self.use_distance:
             x = x[:, :, :3]  # Remove distance feature
-
+        # print("x---------")
+        # print(x)
         x = self.linear(x)
-        
-        # Add positional encoding for sequential information (if needed)
+        # print("x-linear--------")
+        # print(x)
         output = self.transformer_encoder(x)  
-        output = self. fc(output)  # Get the output for the last time step
+        # print("output1---------")
+        # print(output)
+        output = self.fc(output)  # Get the output for the last time step
+        # print("output2---------")
+        # print(output)
         return output
     
 
