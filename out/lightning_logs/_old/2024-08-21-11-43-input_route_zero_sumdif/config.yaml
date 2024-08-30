@@ -1,0 +1,20 @@
+dm:
+  _name: MyDataModuleWithRoute
+  batch_size: 64
+  n_of_route: 10000
+fname: input_route_zero_sumdif
+model:
+  _name: TransformerWithRoute
+  d_model: 64
+  nhead: 8
+  num_layers: 2
+  out_length: 3
+route:
+  _name: DistanceRotateRouteGeneraterV1
+  angle_max: 90
+  angle_min: 0
+  dist_max: 5
+  dist_min: 1
+  path_length: 40
+  x_range: 30
+  y_range: 100

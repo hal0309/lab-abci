@@ -38,22 +38,17 @@ def main():
     config_path = os.path.join(CONFIG_DIR, config_name)
     config = conf.from_yaml(config_path)
 
-    config_route = config["route"]
-    route_gen = m_route.DistanceRotateRouteGeneraterV1.from_config(config_route)
+    route_gen = m_route.DistanceRotateRouteGeneraterV1.from_config(config["route"])
 
     config_dm = config["dm"]
     # dm = MyDataModule(n_of_route=config_dm["n_of_route"], batch_size=config_dm["batch_size"], route_gen=route_gen, df=df)
     dm = MyDataModuleWithRoute(n_of_route=config_dm["n_of_route"], batch_size=config_dm["batch_size"], route_gen=route_gen, df=df)
 
-    config_model = config["model"]
-    # model = models.TransformerByPL.from_config(config_model)
-    model = models.TransformerWithRoute.from_config(config_model)
+
+    model = models.TransformerWithRoute.from_config(config["model"])
 
     fname = config["fname"]
-    train(route_gen=route_gen, dm=dm, model=model, max_epochs=max_epochs, fname=fname)
 
-
-def train(route_gen, dm, model, max_epochs, fname):
     # ディレクトリの作成
     log_fname = f"{ut.get_datetime()}-{fname}"
     output_dir = os.path.join(OUTPUT_DIR, "lightning_logs")
@@ -61,10 +56,11 @@ def train(route_gen, dm, model, max_epochs, fname):
     os.makedirs(checkpoint_dir, exist_ok=True)
 
     # configの保存
-    config_route = route_gen.get_config()
-    config_dm = dm.get_config()
-    config_model = model.get_config()
-    conf.ConfigrationBuilder().add("route", config_route).add("dm", config_dm).add("model", config_model).add("fname", fname).to_yaml(os.path.dirname(checkpoint_dir))
+    config_builder = conf.ConfigrationBuilder()
+    config_builder.add("route", route_gen.get_config())
+    config_builder.add("dm", dm.get_config())
+    config_builder.add("model", model.get_config())
+    config_builder.to_yaml(checkpoint_dir)
 
     loss_checkpoint = ModelCheckpoint(
         filename=f"best_loss_fold",
@@ -79,43 +75,8 @@ def train(route_gen, dm, model, max_epochs, fname):
         logger=[pl_loggers.TensorBoardLogger(output_dir, name=log_fname)],
         callbacks=[loss_checkpoint]
         )
-    print(loss_checkpoint.dirpath)
     
-    trainer.fit(model, dm)
-
-
-# def re_train(df, batch, max_epochs, dir_name):
-
-#     fix_seeds(0)
-
-#     x_max = df["x"].max()
-#     y_max = df["y"].max()
-
-#     # route_gen = m_route.DistanceRouteGenerater(x_max, y_max, PATH_LENGTH)
-#     route_gen = m_route.DistanceRotateRouteGenerater(x_max, y_max, PATH_LENGTH, dist_min=1, dist_max=5, angle_min=0, angle_max=90)
-#     dm = MyDataModule(df, NUMBER_OF_ROUTE, route_gen, batch_size=batch)
-
-#     loss_checkpoint = ModelCheckpoint(
-#         filename=f"best_loss_fold",
-#         dirpath=dir_name,
-#         monitor="val_loss",
-#         save_last=True,
-#         save_top_k=1,
-#         mode="min"
-#     )
-
-#     checkpoint_path = f"./lightning_logs/{dir_name}/cp/last.ckpt"
-    
-#     trainer = pl.Trainer(
-#         max_epochs=max_epochs,
-#         logger=[pl_loggers.TensorBoardLogger("lightning_logs", name=dir_name)],
-#         callbacks=[loss_checkpoint]
-#         )
-
-#     print(loss_checkpoint.dirpath)
-#     model = TransformerByPL.load_from_checkpoint(checkpoint_path)
-#     trainer.fit(model, dm, ckpt_path=checkpoint_path)
-
+    trainer.fit(model, dm)    
 
 if __name__ == "__main__":
     main()
