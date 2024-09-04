@@ -3,7 +3,7 @@ from model.transformerByPL import TransformerByPL
 from model.transformerWithRoute import TransformerWithRoute
 
 
-MODELS = {
+DICT = {
         "LSTMByPL": LSTMByPL,
         "TransformerByPL": TransformerByPL,
         "TransformerWithRoute": TransformerWithRoute,
@@ -12,6 +12,6 @@ MODELS = {
 
 def get_model(config):
     try:
-        return MODELS[config["_name"]].from_config(config)
+        return DICT[config["_name"]].from_config(config)
     except KeyError:
         raise ValueError(f"model_name: {config['_name']} is not supported.")

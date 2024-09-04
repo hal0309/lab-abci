@@ -1,26 +1,21 @@
 import os
 import sys
-import matplotlib.pyplot as plt
 import pickle
 import pytorch_lightning as pl
 from pytorch_lightning import loggers as pl_loggers
 from pytorch_lightning.callbacks import ModelCheckpoint
 
 import model._models as models
-from datamodule.datamodule import MyDataModule
-from datamodule.datamodule import MyDataModuleWithRoute
-import mylib.route as m_route
+import datamodule._datamodules as datamodules
+import dataset._datasets as datasets
+import route._routes as routes
 import mylib.utils as ut
 import mylib.config as conf
-
 
 ROOT_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DF_PATH = os.path.join(ROOT_PATH, "data", "df_test.pickle")
 OUTPUT_DIR = os.path.join(ROOT_PATH, "out")
 CONFIG_DIR = os.path.join(ROOT_PATH, "config")
-
-
-
 
 def main():
     # 乱数シードの固定
@@ -29,23 +24,24 @@ def main():
     # 引数の取得
     config_name, max_epochs = check_args(sys.argv)
     
+    # データフレームの読込
     df = pickle.load(open(DF_PATH, "rb"))
     
+    # configの読込
     config_path = os.path.join(CONFIG_DIR, config_name)
     config = conf.from_yaml(config_path)
 
-    route_gen = m_route.DistanceRotateRouteGeneraterV1.from_config(config["route"])
-
-    config_dm = config["dm"]
-    # dm = MyDataModule(n_of_route=config_dm["n_of_route"], batch_size=config_dm["batch_size"], route_gen=route_gen, df=df)
-    dm = MyDataModuleWithRoute(n_of_route=config_dm["n_of_route"], batch_size=config_dm["batch_size"], route_gen=route_gen, df=df)
-
-
+    # 各種初期化
     model = models.get_model(config["model"])
-
-    fname = config["fname"]
+    route_gen = routes.get_route_generator(config["route"])
+    dataset = datasets.get_dataset(config["dataset"])
+    dm = datamodules.get_dm(config["dm"])
+    
+    dataset.set_route(df, route_gen)
+    dm.setDataset(dataset)
 
     # ディレクトリの作成
+    fname = config["fname"]
     log_fname = f"{ut.get_datetime()}-{fname}"
     output_dir = os.path.join(OUTPUT_DIR, "lightning_logs")
     checkpoint_dir = os.path.join(output_dir, log_fname, "cp")
@@ -53,11 +49,14 @@ def main():
 
     # configの保存
     config_builder = conf.ConfigrationBuilder()
+    config_builder.add("fname", fname)
     config_builder.add("route", route_gen.get_config())
     config_builder.add("dm", dm.get_config())
+    config_builder.add("dataset", dataset.get_config())
     config_builder.add("model", model.get_config())
-    config_builder.to_yaml(output_dir)
+    config_builder.to_yaml(os.path.dirname(checkpoint_dir))
 
+    # callback等設定
     loss_checkpoint = ModelCheckpoint(
         filename=f"best_loss_fold",
         dirpath=checkpoint_dir,
@@ -72,15 +71,16 @@ def main():
         callbacks=[loss_checkpoint]
         )
     
+    # 学習
     trainer.fit(model, dm)    
 
 
 
 def check_args(argv):
-    if len(sys.argv) == 3:
+    if len(sys.argv) == 3: # train.py config_name max_epochs
         config_name = sys.argv[1]
         max_epochs = int(sys.argv[2])
-    elif len(sys.argv) == 2:
+    elif len(sys.argv) == 2: # train.py config_name
         config_name = sys.argv[1]
         max_epochs = 10000
     else:
