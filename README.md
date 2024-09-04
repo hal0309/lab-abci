@@ -1,5 +1,10 @@
 ## 初期化手順
 
+module(ABCI)のアクティベート
+``` bash
+module load python/3.10/3.10.14 cuda/11.8/11.8.0 cudnn/8.6/8.6.0
+```
+
 仮想環境の作成と起動
 ``` bash
 python3 -m venv ./env
@@ -11,8 +16,6 @@ torchのinstall
 
 
 その他のinstall  
-うまくいかない場合は`requirements.txt`の内容に一個ずつpipを叩くことを推奨
 ``` bash
-
 pip install -r requirements.txt
 ```
