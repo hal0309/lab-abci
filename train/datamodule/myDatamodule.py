@@ -18,6 +18,9 @@ class MyDataModule(pl.LightningDataModule, Configurable):
         train_size = int((len(dataset) - test_size) * 0.8)
         val_size = len(dataset) - train_size - test_size
         self.train_dataset, self.val_dataset, self.test_dataset = data.random_split(dataset, [train_size, val_size, test_size])
+        # self.train_dataset = dataset[0]
+        # self.val_dataset = dataset[1]
+        # self.test_dataset = dataset[2]
 
     def train_dataloader(self):
         return data.DataLoader(self.train_dataset, batch_size=self.batch_size, shuffle=True, num_workers=7, persistent_workers=True)

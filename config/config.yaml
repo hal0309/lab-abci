@@ -1,4 +1,4 @@
-fname: anglediff
+fname: misscheck1
 dm:
   _name: MyDataModule
   batch_size: 64
