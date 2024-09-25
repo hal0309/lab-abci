@@ -1,10 +1,16 @@
 from dataset.routeDataset import RouteDataset
 from dataset.routeDatasetWithRoute import RouteDatasetWithRoute
+from dataset.routeDatasetWithRouteDiff import RouteDatasetWithRouteDiff
+from dataset.routeDatasetWithZeros import RouteDatasetWithZeros
+from dataset.routeDatasetWithDistance import RouteDatasetWithDistance
 
 
 DICT = {
         "RouteDataset": RouteDataset,
-        "RouteDatasetWithRoute": RouteDatasetWithRoute
+        "RouteDatasetWithRoute": RouteDatasetWithRoute,
+        "RouteDatasetWithRouteDiff": RouteDatasetWithRouteDiff,
+        "RouteDatasetWithDistance": RouteDatasetWithDistance,
+        "RouteDatasetWithZeros": RouteDatasetWithZeros
     }
 
 

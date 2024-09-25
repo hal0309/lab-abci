@@ -13,7 +13,7 @@ import mylib.utils as ut
 import mylib.config as conf
 
 ROOT_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DF_PATH = os.path.join(ROOT_PATH, "data", "df_test.pickle")
+DF_DIR = os.path.join(ROOT_PATH, "data")
 OUTPUT_DIR = os.path.join(ROOT_PATH, "out")
 CONFIG_DIR = os.path.join(ROOT_PATH, "config")
 
@@ -24,12 +24,13 @@ def main():
     # 引数の取得
     config_name, max_epochs = check_args(sys.argv)
     
-    # データフレームの読込
-    df = pickle.load(open(DF_PATH, "rb"))
-    
     # configの読込
     config_path = os.path.join(CONFIG_DIR, config_name)
     config = conf.from_yaml(config_path)
+
+    # データフレームの読込
+    df_path = os.path.join(DF_DIR, config["df_name"])
+    df = pickle.load(open(df_path, "rb"))
 
     # 各種初期化
     model = models.get_model(config["model"])

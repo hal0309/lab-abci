@@ -1,4 +1,5 @@
-fname: misscheck1
+fname: 5s_avg_test
+df_name: df_5s_avg.pickle
 dm:
   _name: MyDataModule
   batch_size: 64

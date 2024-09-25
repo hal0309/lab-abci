@@ -32,14 +32,14 @@ class RouteDatasetWithRoute(data.Dataset, Configurable):
         X = [X[i] - X[0] for i in range(len(X))]
         Y = [Y[i] - Y[0] for i in range(len(Y))]
 
-        # 適当な誤差を生成
-        diff_X = [np.random.normal(0, 0.2) for _ in X]
-        diff_Y = [np.random.normal(0, 0.2) for _ in Y]
-        diff_X[0] = 0
-        diff_Y[0] = 0
-        # 誤差を累積
-        X = [X[i] + sum(diff_X[:i]) for i in range(len(X))]
-        Y = [Y[i] + sum(diff_Y[:i]) for i in range(len(Y))]
+        # # 適当な誤差を生成
+        # diff_X = [np.random.normal(0, 0.2) for _ in X]
+        # diff_Y = [np.random.normal(0, 0.2) for _ in Y]
+        # diff_X[0] = 0
+        # diff_Y[0] = 0
+        # # 誤差を累積
+        # X = [X[i] + sum(diff_X[:i]) for i in range(len(X))]
+        # Y = [Y[i] + sum(diff_Y[:i]) for i in range(len(Y))]
 
         # 原点中心に回転
         theta = np.arctan2(Y[1], X[1])
@@ -51,22 +51,8 @@ class RouteDatasetWithRoute(data.Dataset, Configurable):
         norm = 1 / Y_rotated[1]
         X_rotated = [x * norm for x in X_rotated]
         Y_rotated = [y * norm for y in Y_rotated]
-        # print(f"X_rotated: {X_rotated}")
-        # print(f"Y_rotated: {Y_rotated}")
 
-        # X_rotated = [0 for i in range(len(X))]
-        # Y_rotated = [0 for i in range(len(Y))]
-
-        
-
-        # theta = np.arctan(rot_Y[1]/ rot_X[1])
-        # print(f"theta: {theta}")
-
-
-        # XY_zero = np.column_stack((X, Y))
         XY_zero = np.column_stack((X_rotated, Y_rotated))
-
-        distance = [0 for i in range(len(X))]    
 
         mf_and_d = torch.cat([torch.Tensor(MF), torch.Tensor(XY_zero)], dim=1)
         
