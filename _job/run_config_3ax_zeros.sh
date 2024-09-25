@@ -1,5 +1,5 @@
 #$ -l rt_G.small=1
-#$ -l h_rt=1:00:00
+#$ -l h_rt=72:00:00
 #$ -N run_config_3ax_zeros
 #$ -o run_config_3ax_zeros.out
 #$ -e run_config_3ax_zeros.err
