@@ -5,6 +5,7 @@
 #$ -e run_config_3ax_zeros.err
 #$ -cwd
 
+source /etc/profile.d/modules.sh
 module load python/3.10/3.10.14 cuda/11.8/11.8.0 cudnn/8.6/8.6.0
 cd ~/repo/lab-abci
 source ./env/bin/activate
