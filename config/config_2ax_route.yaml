@@ -1,4 +1,4 @@
-fname: 3ax_route
+fname: 2ax_route
 df_name: df_5s_avg.pickle
 dm:
   _name: MyDataModule
