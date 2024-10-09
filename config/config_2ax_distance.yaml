@@ -1,4 +1,4 @@
-fname: 2ax_distance
+fname: 2ax_distance_abci
 df_name: df_5s_avg.pickle
 dm:
   _name: MyDataModule
