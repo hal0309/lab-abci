@@ -7,23 +7,24 @@ from mylib.config import Configurable
 from mylib.config import save
 
 class TransformerWithRoute(pl.LightningModule, Configurable):
+    input_size: save
     d_model: save
     nhead: save
     num_layers: save
     out_length: save
     opt_lr: save
 
-    def __init__(self, d_model=64, nhead=8, num_layers=2, out_length=1, opt_lr=1e-3):  
+    def __init__(self, input_size=5, d_model=64, nhead=8, num_layers=2, out_length=1, opt_lr=1e-3):  
         super().__init__()
         self.save_hyperparameters()
 
+        self.input_size = input_size
         self.d_model = d_model
         self.nhead = nhead
         self.num_layers = num_layers
         self.out_length = out_length
         self.opt_lr = opt_lr
     
-        input_size = 5
         self.linear = nn.Linear(input_size, d_model)
 
         encoder_layer = TransformerEncoderLayer(d_model=d_model, nhead=nhead, batch_first=True)

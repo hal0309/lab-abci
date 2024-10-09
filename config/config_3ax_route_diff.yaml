@@ -9,6 +9,7 @@ dataset:
   diff_size: 0.13
 model:
   _name: TransformerWithRoute
+  input_size: 5
   d_model: 64
   nhead: 8
   out_length: 20
