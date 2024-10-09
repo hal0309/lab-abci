@@ -7,6 +7,7 @@ dataset:
   _name: RouteDatasetWithRouteDiff
   n_of_route: 10000
   diff_size: 0.13
+  is_2ax: true
 model:
   _name: TransformerWithRoute
   d_model: 64
