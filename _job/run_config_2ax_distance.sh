@@ -1,5 +1,5 @@
 #$ -l rt_G.small=1
-#$ -l h_rt=100:00:00
+#$ -l h_rt=72:00:00
 #$ -cwd
 
 source /etc/profile.d/modules.sh
