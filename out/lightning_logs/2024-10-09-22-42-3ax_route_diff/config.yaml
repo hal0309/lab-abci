@@ -1,0 +1,26 @@
+dataset:
+  _name: RouteDatasetWithRouteDiff
+  diff_size: 0.13
+  is_2ax: false
+  n_of_route: 10000
+dm:
+  _name: MyDataModule
+  batch_size: 64
+fname: 3ax_route_diff
+model:
+  _name: TransformerWithRoute
+  d_model: 64
+  input_size: 5
+  nhead: 8
+  num_layers: 2
+  opt_lr: 0.001
+  out_length: 20
+route:
+  _name: DistanceRotateRouteGeneraterV1
+  angle_max: 90
+  angle_min: 0
+  dist_max: 5
+  dist_min: 1
+  path_length: 40
+  x_range: 30
+  y_range: 100
