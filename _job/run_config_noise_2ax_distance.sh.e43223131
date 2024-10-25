@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/acf16208br/repo/lab-abci/train/train.py", line 95, in <module>
+    main()
+  File "/home/acf16208br/repo/lab-abci/train/train.py", line 38, in main
+    dataset = datasets.get_dataset(config["dataset"])
+  File "/home/acf16208br/repo/lab-abci/train/dataset/_datasets.py", line 21, in get_dataset
+    return DICT[config["_name"]].from_config(config)
+  File "/home/acf16208br/repo/lab-abci/train/mylib/config.py", line 29, in from_config
+    return cls(**config_without_name)
+TypeError: RouteDatasetWithDistance.__init__() got an unexpected keyword argument 'add_noise'
