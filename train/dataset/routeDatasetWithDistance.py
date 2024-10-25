@@ -7,7 +7,6 @@ from mylib.config import Configurable
 from mylib.config import save
 from mylib.utils import get_mf
 
-
 class RouteDatasetWithDistance(data.Dataset, Configurable):
     n_of_route: save
     is_2ax: save
@@ -31,7 +30,7 @@ class RouteDatasetWithDistance(data.Dataset, Configurable):
         X = self.route[idx][0]
         Y = self.route[idx][1]
 
-        MF = getMF(self.df, X, Y, self.is_2ax, self.add_noise)
+        MF = get_mf(self.df, X, Y, self.is_2ax, self.add_noise)
         X = [float(x * 0.1) for x in X]
         Y = [float(y * 0.1) for y in Y]
         XY = np.column_stack((X, Y))
