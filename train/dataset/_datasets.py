@@ -3,6 +3,7 @@ from dataset.routeDatasetWithRoute import RouteDatasetWithRoute
 from dataset.routeDatasetWithRouteDiff import RouteDatasetWithRouteDiff
 from dataset.routeDatasetWithZeros import RouteDatasetWithZeros
 from dataset.routeDatasetWithDistance import RouteDatasetWithDistance
+from dataset.testDataset import TestDataset
 
 
 DICT = {
@@ -10,7 +11,8 @@ DICT = {
         "RouteDatasetWithRoute": RouteDatasetWithRoute,
         "RouteDatasetWithRouteDiff": RouteDatasetWithRouteDiff,
         "RouteDatasetWithDistance": RouteDatasetWithDistance,
-        "RouteDatasetWithZeros": RouteDatasetWithZeros
+        "RouteDatasetWithZeros": RouteDatasetWithZeros,
+        "TestDataset": TestDataset,
     }
 
 
