@@ -6,7 +6,7 @@ dataset:
 dm:
   _name: MyDataModule
   batch_size: 64
-fname: 2ax_zeros_abci
+fname: 2ax_noise_zeros_abci
 model:
   _name: TransformerWithRoute
   d_model: 64
