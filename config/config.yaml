@@ -1,4 +1,4 @@
-fname: 5s_avg_test
+fname: 2p_2ax_route_test
 df_name: df_5s_avg.pickle
 dm:
   _name: MyDataModule
@@ -6,8 +6,11 @@ dm:
 dataset:
   _name: RouteDatasetWithRoute
   n_of_route: 10000
+  is_2ax: true
+  add_noise: false
 model:
   _name: TransformerWithRoute
+  input_size: 4
   d_model: 64
   nhead: 8
   out_length: 20
@@ -18,6 +21,6 @@ route:
   angle_min: 0
   dist_max: 5
   dist_min: 1
-  path_length: 40
+  path_length: 2
   x_range: 30
   y_range: 100
