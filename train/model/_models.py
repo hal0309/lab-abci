@@ -1,12 +1,14 @@
 from model.lstmByPL import LSTMByPL
 from model.transformerByPL import TransformerByPL
 from model.transformerWithRoute import TransformerWithRoute
+from model.transformerDirect import TransformerDirect
 
 
 DICT = {
         "LSTMByPL": LSTMByPL,
         "TransformerByPL": TransformerByPL,
         "TransformerWithRoute": TransformerWithRoute,
+        "TransformerDirect": TransformerDirect
     }
 
 

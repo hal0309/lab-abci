@@ -1,0 +1,5 @@
+input_size: 4
+nhead: 1
+num_layers: 2
+opt_lr: 0.001
+out_length: 2
