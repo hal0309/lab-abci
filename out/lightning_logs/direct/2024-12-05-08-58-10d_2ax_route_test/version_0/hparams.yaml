@@ -1,0 +1,6 @@
+d_model: 40
+input_size: 40
+nhead: 4
+num_layers: 2
+opt_lr: 0.001
+out_length: 20

@@ -34,6 +34,7 @@ class TransformerDirect(pl.LightningModule, Configurable):
         self.fc = nn.Linear(d_model, out_length)
 
     def forward(self, x):
+        x = self.linear(x)
         x = self.transformer_encoder(x)  
         x = self.fc(x)
         return x

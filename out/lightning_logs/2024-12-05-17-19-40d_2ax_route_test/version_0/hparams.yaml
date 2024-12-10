@@ -1,6 +1,0 @@
-d_model: 160
-input_size: 160
-nhead: 4
-num_layers: 2
-opt_lr: 0.001
-out_length: 80

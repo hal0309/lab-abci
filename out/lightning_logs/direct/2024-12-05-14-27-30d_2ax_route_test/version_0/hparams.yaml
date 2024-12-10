@@ -1,0 +1,6 @@
+d_model: 120
+input_size: 120
+nhead: 4
+num_layers: 2
+opt_lr: 0.001
+out_length: 60
