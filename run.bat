@@ -1,7 +1,6 @@
 @echo off
-py .\train\train.py config_d20l40.yaml
-py .\train\train.py config_d20l80.yaml
-py .\train\train.py config_d20l120.yaml
-py .\train\train.py config_d20l160.yaml
-py .\train\train.py config_d20l320.yaml
+py .\train\train.py config_dec_2ax_zeros.yaml
+py .\train\train.py config_dec_2ax_distance.yaml
+py .\train\train.py config_dec_2ax_route.yaml
+py .\train\train.py config_dec_2ax_route_diff.yaml
 pause

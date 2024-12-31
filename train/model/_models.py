@@ -2,13 +2,17 @@ from model.lstmByPL import LSTMByPL
 from model.transformerByPL import TransformerByPL
 from model.transformerWithRoute import TransformerWithRoute
 from model.transformerDirect import TransformerDirect
+from model.transformerDecoder import TransformerWithRouteDecoder
+from model.transformerDecoderAR import TransformerWithRouteDecoderAR
 
 
 DICT = {
         "LSTMByPL": LSTMByPL,
         "TransformerByPL": TransformerByPL,
         "TransformerWithRoute": TransformerWithRoute,
-        "TransformerDirect": TransformerDirect
+        "TransformerDirect": TransformerDirect,
+        "TransformerWithRouteDecoder": TransformerWithRouteDecoder, # Teacher Forcing
+        "TransformerWithRouteDecoderAR": TransformerWithRouteDecoderAR # Auto Regressive(自己回帰)
     }
 
 

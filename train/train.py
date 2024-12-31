@@ -51,6 +51,7 @@ def main():
     # configの保存
     config_builder = conf.ConfigrationBuilder()
     config_builder.add("fname", fname)
+    config_builder.add("df_name", config["df_name"])
     config_builder.add("route", route_gen.get_config())
     config_builder.add("dm", dm.get_config())
     config_builder.add("dataset", dataset.get_config())

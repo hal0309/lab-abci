@@ -1,4 +1,4 @@
-fname: 2linear_2ax_route_test
+fname: dec_ar_2ax_route_test
 df_name: df_5s_avg.pickle
 dm:
   _name: MyDataModule
@@ -9,7 +9,7 @@ dataset:
   is_2ax: true
   add_noise: false
 model:
-  _name: TransformerDirect
+  _name: TransformerWithRouteDecoderAR
   input_size: 80
   d_model: 80
   nhead: 8
