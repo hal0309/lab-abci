@@ -1,4 +1,4 @@
-fname: 40p_2ax_route_test
+fname: divide2_2ax_route
 df_name: df_5s_avg.pickle
 dm:
   _name: MyDataModule
@@ -8,7 +8,7 @@ dataset:
   n_of_route: 10000
   is_2ax: true
   add_noise: false
-  divide: 20
+  divide: 2
 model:
   _name: TransformerWithRoute
   input_size: 4

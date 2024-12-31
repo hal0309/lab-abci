@@ -1,4 +1,4 @@
-fname: 40p_2ax_route_test
+fname: divide20_2ax_route
 df_name: df_5s_avg.pickle
 dm:
   _name: MyDataModule

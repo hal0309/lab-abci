@@ -11,15 +11,28 @@ class RouteDatasetWithRoute(data.Dataset, Configurable):
     n_of_route: save
     is_2ax: save
     add_noise: save
+    divide: save
 
-    def __init__(self, n_of_route, is_2ax=False, add_noise=False) -> None:
+    def __init__(self, n_of_route, is_2ax=False, add_noise=False, divide=1) -> None:
         self.n_of_route = n_of_route
         self.is_2ax = is_2ax
         self.add_noise = add_noise
+        self.divide = divide
 
     def set_route(self, df, route_gen):
         self.df = df
-        self.route = route_gen.get_route_list(self.n_of_route)
+        origin_route = route_gen.get_route_list(self.n_of_route)
+        divided_route = []  # ルートを分割
+        for route in origin_route:
+            X = route[0]
+            Y = route[1]
+            step = len(X) // self.divide
+            for i in range(self.divide):
+                divided_route.append([X[i*step:(i+1)*step], Y[i*step:(i+1)*step]])
+            
+        self.route = divided_route
+        # self.route = route_gen.get_route_list(self.n_of_route)
+
 
     def __len__(self) -> int:
         return len(self.route)
