@@ -1,6 +1,8 @@
 @echo off
-py .\train\train.py config_dec_2ax_zeros.yaml
-py .\train\train.py config_dec_2ax_distance.yaml
-py .\train\train.py config_dec_2ax_route.yaml
-py .\train\train.py config_dec_2ax_route_diff.yaml
+py .\train\train.py config_divide1.yaml
+py .\train\train.py config_divide2.yaml
+py .\train\train.py config_divide4.yaml
+py .\train\train.py config_divide8.yaml
+py .\train\train.py config_divide10.yaml
+py .\train\train.py config_divide20.yaml
 pause
