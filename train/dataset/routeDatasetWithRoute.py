@@ -12,12 +12,14 @@ class RouteDatasetWithRoute(data.Dataset, Configurable):
     is_2ax: save
     add_noise: save
     divide: save
+    comp: save
 
-    def __init__(self, n_of_route, is_2ax=False, add_noise=False, divide=1) -> None:
+    def __init__(self, n_of_route, is_2ax=False, add_noise=False, divide=1, comp=-1) -> None:
         self.n_of_route = n_of_route
         self.is_2ax = is_2ax
         self.add_noise = add_noise
         self.divide = divide
+        self.comp = comp
 
     def set_route(self, df, route_gen):
         self.df = df
@@ -70,10 +72,23 @@ class RouteDatasetWithRoute(data.Dataset, Configurable):
         X_rotated = [x * norm for x in X_rotated]
         Y_rotated = [y * norm for y in Y_rotated]
 
+        length = len(X_rotated)
+        
+
         XY_zero = np.column_stack((X_rotated, Y_rotated))
 
         mf_and_d = torch.cat([torch.Tensor(MF), torch.Tensor(XY_zero)], dim=1)
+        XY = torch.Tensor(XY)
+
+        comp_diff = self.comp - length
+        if comp_diff > 0:
+            mf_and_d = torch.cat([mf_and_d, torch.zeros(comp_diff, 4)], dim=0)
+            XY = torch.cat([XY, torch.zeros(comp_diff, 2)], dim=0)
+
+
+        # print("mf_and_d", mf_and_d)
+        # print("XY", XY)
         
-        return mf_and_d, torch.Tensor(XY)
+        return mf_and_d, XY
 
 

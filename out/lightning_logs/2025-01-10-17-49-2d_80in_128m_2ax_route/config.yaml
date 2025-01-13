@@ -1,0 +1,29 @@
+dataset:
+  _name: RouteDatasetWithRoute
+  add_noise: false
+  comp: 20
+  divide: 10
+  is_2ax: true
+  n_of_route: 10000
+df_name: df_5s_avg.pickle
+dm:
+  _name: MyDataModule
+  batch_size: 64
+fname: 2d_80in_128m_2ax_route
+model:
+  _name: TransformerDirect
+  d_model: 128
+  input_size: 80
+  nhead: 4
+  num_layers: 2
+  opt_lr: 0.001
+  out_length: 40
+route:
+  _name: DistanceRotateRouteGeneraterV1
+  angle_max: 90
+  angle_min: 0
+  dist_max: 5
+  dist_min: 1
+  path_length: 20
+  x_range: 30
+  y_range: 100
