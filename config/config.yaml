@@ -1,16 +1,16 @@
-fname: test_hidde_harf
-df_name: df_5s_avg_hide_harf.pickle
+fname: test_2ax_dist_index
+df_name: df_5s_avg.pickle
 dm:
   _name: MyDataModule
   batch_size: 64
 dataset:
-  _name: RouteDatasetWithRoute
+  _name: RouteDatasetWithDistanceIndex
   n_of_route: 10000
-  is_2ax: true
+  is_2ax: false
   add_noise: false
 model:
   _name: TransformerWithRoute
-  input_size: 4
+  input_size: 6
   d_model: 64
   nhead: 8
   out_length: 20
@@ -21,6 +21,6 @@ route:
   angle_min: 0
   dist_max: 5
   dist_min: 1
-  path_length: 20
+  path_length: 40
   x_range: 30
   y_range: 100

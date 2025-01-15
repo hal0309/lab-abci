@@ -1,6 +1,9 @@
 @echo off
-py .\train\train.py config_20d_80in_128m.yaml
-py .\train\train.py config_10d_80in_128m.yaml
-py .\train\train.py config_5d_80in_128m.yaml
-py .\train\train.py config_2d_80in_128m.yaml
+py .\train\train.py config_index_2ax_distance.yaml
+py .\train\train.py config_index_2ax_route.yaml
+py .\train\train.py config_index_2ax_zeros.yaml
+py .\train\train.py config_index_3ax_distance.yaml
+py .\train\train.py config_index_3ax_route.yaml
+py .\train\train.py config_index_3ax_zeros.yaml
+
 pause

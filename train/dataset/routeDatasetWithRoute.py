@@ -90,13 +90,14 @@ class RouteDatasetWithRoute(data.Dataset, Configurable):
         # print("XY", XY)
 
 
-        dummy_n = np.random.randint(0, 10)
+        dummy_n = np.random.randint(1, length)
 
-        dummy_mf_and_d = [[0, 0, 0, 0] for _ in range(length)]
+        dummy_mf_and_d = [[0, 0, 0, i] for i in range(length)]
         dummy_mf_and_d[0] = [dummy_n, dummy_n, dummy_n, dummy_n]
         dummy_mf_and_d = torch.Tensor(dummy_mf_and_d)
 
-        dummy_XY = [[dummy_n, dummy_n] for _ in range(length)]
+        dummy_XY = [[0, 0] for _ in range(length)]
+        dummy_XY[dummy_n] = [dummy_n, dummy_n]
         dummy_XY = torch.Tensor(dummy_XY)
 
         # print("dummy_mf_and_d", dummy_mf_and_d)
