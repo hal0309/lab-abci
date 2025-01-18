@@ -1,19 +1,19 @@
-fname: test_2ax_dist_index
+fname: 2ax_route_flat2
 df_name: df_5s_avg.pickle
 dm:
   _name: MyDataModule
   batch_size: 64
 dataset:
-  _name: RouteDatasetWithDistanceIndex
+  _name: RouteDatasetWithRoute
   n_of_route: 10000
-  is_2ax: false
+  is_2ax: true
   add_noise: false
 model:
-  _name: TransformerWithRoute
-  input_size: 6
+  _name: TransformerDirect
+  input_size: 160
   d_model: 64
   nhead: 8
-  out_length: 20
+  out_length: 2
   opt_lr: 0.001
 route:
   _name: DistanceRotateRouteGeneraterV1

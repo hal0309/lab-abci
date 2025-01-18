@@ -1,0 +1,26 @@
+fname: 2ax_zeros_flat2
+df_name: df_5s_avg.pickle
+dm:
+  _name: MyDataModule
+  batch_size: 64
+dataset:
+  _name: RouteDatasetWithZeros
+  n_of_route: 10000
+  is_2ax: true
+  add_noise: false
+model:
+  _name: TransformerDirect
+  input_size: 160
+  d_model: 64
+  nhead: 8
+  out_length: 2
+  opt_lr: 0.001
+route:
+  _name: DistanceRotateRouteGeneraterV1
+  angle_max: 90
+  angle_min: 0
+  dist_max: 5
+  dist_min: 1
+  path_length: 40
+  x_range: 30
+  y_range: 100

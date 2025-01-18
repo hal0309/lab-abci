@@ -46,7 +46,7 @@ class TransformerDirect(pl.LightningModule, Configurable):
         x, y = batch
         x, y = x.view(64, -1), y.view(64, -1)
         y_hat = self(x)
-        loss = nn.functional.mse_loss(y_hat, y)
+        loss = nn.functional.mse_loss(y_hat, y[:, -self.out_length:])
         self.log("train_loss", loss, prog_bar=True)
         return loss
 
@@ -54,7 +54,7 @@ class TransformerDirect(pl.LightningModule, Configurable):
         x, y = batch
         x, y = x.view(64, -1), y.view(64, -1)
         y_hat = self(x)
-        loss = nn.functional.mse_loss(y_hat, y)
+        loss = nn.functional.mse_loss(y_hat, y[:, -self.out_length:])
         self.log("test_loss", loss, prog_bar=True)
         return loss
 
@@ -62,6 +62,6 @@ class TransformerDirect(pl.LightningModule, Configurable):
         x, y = batch
         x, y = x.view(64, -1), y.view(64, -1)
         y_hat = self(x)
-        loss = nn.functional.mse_loss(y_hat, y)
+        loss = nn.functional.mse_loss(y_hat, y[:, -self.out_length:])
         self.log("val_loss", loss, prog_bar=True)
         return loss
