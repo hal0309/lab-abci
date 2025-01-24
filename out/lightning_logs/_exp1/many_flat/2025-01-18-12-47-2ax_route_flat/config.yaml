@@ -1,13 +1,15 @@
 dataset:
-  _name: RouteDatasetWithDistance
+  _name: RouteDatasetWithRoute
   add_noise: false
+  comp: -1
+  divide: 1
   is_2ax: true
   n_of_route: 10000
 df_name: df_5s_avg.pickle
 dm:
   _name: MyDataModule
   batch_size: 64
-fname: 2ax_distance_flat2
+fname: 2ax_route_flat
 model:
   _name: TransformerDirect
   d_model: 64
