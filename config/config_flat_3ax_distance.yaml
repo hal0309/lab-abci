@@ -1,4 +1,4 @@
-fname: 3ax_distance_flat2
+fname: 3ax_distance_flat
 df_name: df_5s_avg.pickle
 dm:
   _name: MyDataModule
@@ -13,7 +13,7 @@ model:
   input_size: 200
   d_model: 64
   nhead: 8
-  out_length: 100
+  out_length: 80
   opt_lr: 0.001
 route:
   _name: DistanceRotateRouteGeneraterV1
